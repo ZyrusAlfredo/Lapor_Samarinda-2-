@@ -69,3 +69,57 @@ Pengguna dapat menghapus laporan, dengan cara menekan salah satu laporan lalu an
 ## 7. Fitur Supabase
 Sistem data ini disimpan ke dalam Supabase yang dapat menyimpan data secara realtime.
 <img width="1920" height="1080" alt="Tampilan (7)" src="https://github.com/user-attachments/assets/21b03c7a-7fe5-4764-a9f4-b2038b58a3ec" />
+
+# 📂 Struktur Folder
+
+models
+- laporan.dart)
+
+pages
+- auth_page.dart
+- detail_laporan_page.dart
+- form_laporan_page.dart
+- home_page.dart
+- laporan_list_page.dart
+- login_page.dart
+- register_page.dart
+
+theme
+- app_theme.dart
+- theme_controller.dart
+
+main.dart
+
+# 📲 Widget yang Digunakan
+## 1. Widget Autentikasi (AuthPage, LoginPage, RegisterPage)
+Widget ini menangani logika masuk dan pendaftaran pengguna menggunakan Supabase Auth.
+- TextField & TextEditingController: Digunakan untuk menangkap input email dan kata sandi dari pengguna.
+- ObscureText: Digunakan untuk menyembunyikan karakter pada kolom kata sandi demi keamanan.
+- SingleChildScrollView: Memastikan form tetap dapat diakses (scrollable) ketika keyboard muncul di layar.
+- ElevatedButton: Tombol utama untuk memicu fungsi login() atau register().
+
+## 2. Widget Utama & Dashboard (HomePage)
+Menampilkan ringkasan statistik dan daftar laporan terbaru.
+- RefreshIndicator: Memungkinkan pengguna untuk memperbarui data laporan dengan cara menarik layar ke bawah (pull-to-refresh).
+- ListView / Map Rendering: Mengonversi data dari Supabase menjadi daftar kartu laporan secara dinamis.
+- StatCard (Custom Widget): Widget kustom yang menggunakan Expanded dan Container untuk menampilkan angka statistik (Total, Selesai, Proses) secara horizontal.
+- GestureDetector: Digunakan pada bagian kategori untuk navigasi ke halaman daftar berdasarkan filter tertentu.
+
+## 3. Widget Form Laporan (FormLaporanPage)
+Widget kompleks yang menangani input data laporan baru maupun mode edit.
+- Form & GlobalKey<FormState>: Digunakan untuk validasi input (seperti memastikan deskripsi tidak kosong atau terlalu pendek).
+- DropdownButtonFormField: Memungkinkan pengguna memilih kategori fasilitas (Jalan, Lampu, Kebersihan) dan status laporan.
+- ImagePicker: Integrasi dengan galeri dan kamera perangkat untuk mengunggah foto bukti kerusakan.
+- Stack & Positioned: Digunakan untuk menampilkan pratinjau foto yang dipilih dengan tombol "Hapus" (ikon silang) di sudut foto.
+
+## 4. Widget Detail Laporan (DetailLaporanPage)
+Menampilkan informasi rinci dari sebuah laporan.
+- PageView.builder: Digunakan untuk membuat slider foto jika laporan memiliki lebih dari satu foto bukti.
+- ClipRRect: Memberikan efek sudut melengkung (border radius) pada gambar agar tampilan lebih modern.
+- AlertDialog: Muncul saat pengguna menekan tombol hapus untuk mengonfirmasi tindakan tersebut.
+
+## 5. Manajemen Tema (AppTheme & ThemeController)
+Mendukung fitur Mode Gelap (Dark Mode).
+- ChangeNotifier: Digunakan pada ThemeController untuk memberitahu aplikasi agar melakukan re-build saat tema diubah.
+- SharedPreferences: Menyimpan preferensi tema pengguna (Light/Dark) secara lokal agar tidak berubah saat aplikasi dibuka kembali.
+- ThemeData: Mendefinisikan skema warna, gaya teks, dan bentuk tombol secara global untuk konsistensi UI.
